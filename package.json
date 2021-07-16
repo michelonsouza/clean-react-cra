@@ -23,7 +23,7 @@
     "test": "react-scripts test --passWithNoTests --no-cache --runInBand",
     "test:watch": "yarn test -- --watch",
     "test:staged": "yarn test -- --findRelatedTests",
-    "test:ci": "yarn test -- --coverage",
+    "test:ci": "yarn test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,6 +47,10 @@
   "jest": {
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/src/data/protocols/**/*",
+      "!<rootDir>/src/data/usecases/**/*",
+      "!<rootDir>/src/domain/models/**/*",
+      "!<rootDir>/src/domain/usecases/**/*",
       "!**/*.d.ts"
     ],
     "moduleNameMapper": {
