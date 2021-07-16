@@ -1,0 +1,11 @@
+node_modules
+public
+build
+dist
+
+*.svg
+*.otf
+*.graphql
+*.gql
+*.png
+*.scss
