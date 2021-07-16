@@ -45,6 +45,7 @@
     ]
   },
   "jest": {
+    "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"],
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/src/data/protocols/**/*",
