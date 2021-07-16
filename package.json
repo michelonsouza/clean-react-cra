@@ -22,16 +22,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests --no-cache --runInBand",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:watch": "yarn test -- --watch",
-    "test:staged": "yarn test -- --findRelatedTests",
-    "test:ci": "yarn test -- --coverage --watchAll=false",
+    "test:watch": "npm test -- --watch",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -80,6 +74,7 @@
     "husky": "^4",
     "identity-obj-proxy": "^3.0.0",
     "lint-staged": "^11.0.1",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "sass": "^1.35.2"
   }
 }
