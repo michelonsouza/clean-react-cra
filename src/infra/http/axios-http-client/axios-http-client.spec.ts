@@ -46,11 +46,11 @@ describe('AxiosHttpClient', () => {
     const { sut, mockedAxiosResult } = makeSut();
 
     const httpResponse = await sut.post(mockPostRequestParams());
-    const { status, data } = mockedAxiosResult;
+    const { status: statusCode, data: body } = mockedAxiosResult;
 
     expect(httpResponse).toEqual({
-      statusCode: status,
-      body: data,
+      statusCode,
+      body,
     });
   });
 });

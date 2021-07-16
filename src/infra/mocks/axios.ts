@@ -1,12 +1,12 @@
 import axios from 'axios';
 import faker from 'faker';
 
-interface MockAxiosresult {
+interface MockAxiosResult {
   mockedAxios: jest.Mocked<typeof axios>;
   mockedAxiosResult: Record<string, any>;
 }
 
-export function mockAxios(): MockAxiosresult {
+export function mockAxios(): MockAxiosResult {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   const mockedAxiosResult = {
     data: faker.random.objectElement(),

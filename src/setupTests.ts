@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-const mockedLocalStorage = {
+const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
@@ -13,4 +13,4 @@ const mockedLocalStorage = {
   length: 0,
 };
 
-global.localStorage = mockedLocalStorage;
+global.localStorage = localStorageMock;
