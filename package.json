@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "npm": "You must run yarn in this project",
+    "npm": "You need to use yarn as package manager in this project",
     "yarn": "1.22.x"
   },
   "dependencies": {
