@@ -1,5 +1,6 @@
 {
   "*.{ts,tsx}": [
-    "eslint -c .eslintrc.json 'src/**' --rule 'no-console: error' --cache --fix"
+    "eslint -c .eslintrc.json 'src/**' --rule 'no-console: error' --cache --fix",
+    "yarn test:staged"
   ]
 }
