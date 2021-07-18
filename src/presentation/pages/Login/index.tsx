@@ -1,4 +1,9 @@
-import { Spinner, AuthHeader, Footer } from 'presentation/components';
+import {
+  Spinner,
+  AuthHeader,
+  Footer,
+  TextField,
+} from 'presentation/components';
 
 import classes from './styles.module.scss';
 
@@ -10,19 +15,19 @@ export function Login(): JSX.Element {
       <form className={classes.form}>
         <h2>Login</h2>
 
-        <div className={classes.inputWrapper}>
-          <input type="email" name="email" placeholder="Digite seu e-mail" />
-          <span className={classes.status}>🔴</span>
-        </div>
+        <TextField
+          className={classes.inputWrapper}
+          type="email"
+          name="email"
+          placeholder="Digite seu e-mail"
+        />
 
-        <div className={classes.inputWrapper}>
-          <input
-            type="password"
-            name="password"
-            placeholder="Digite sua senha"
-          />
-          <span className={classes.status}>🔴</span>
-        </div>
+        <TextField
+          className={classes.inputWrapper}
+          type="password"
+          name="password"
+          placeholder="Digite sua senha"
+        />
 
         <button className={classes.submitButton} type="submit">
           Entrar

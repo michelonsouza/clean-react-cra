@@ -5,17 +5,6 @@ body {
   background-color: $background;
 }
 
-input[type="email"], input[type="password"] {
-  border: 1px solid $primaryLight;
-  border-radius: $borderRadius;
-  line-height: 40px;
-  padding: 0 30px 0 8px;
-
-  &:focus {
-    outline-color: $primaryLight;
-  }
-}
-
 button {
   background-color: $primary;
   color: $white;
@@ -56,21 +45,7 @@ button {
     }
 
     .inputWrapper {
-      display: flex;
-      align-items: center;
       margin-top: 16px;
-      position: relative;
-
-      input {
-        flex: 1;
-      }
-
-      .status {
-        position: absolute;
-        right: 8px;
-        font-size: 12px;
-        cursor: help;
-      }
     }
 
     .submitButton {
