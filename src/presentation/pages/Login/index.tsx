@@ -1,7 +1,7 @@
 import {
-  Spinner,
   AuthHeader,
   Footer,
+  FormStatus,
   TextField,
 } from 'presentation/components';
 
@@ -35,10 +35,7 @@ export function Login(): JSX.Element {
 
         <span className={classes.link}>Criar conta</span>
 
-        <div className={classes.errorWrapper}>
-          <Spinner />
-          <span className={classes.error}>Error</span>
-        </div>
+        <FormStatus />
       </form>
 
       <Footer />

@@ -63,19 +63,5 @@ button {
         text-decoration: underline;
       }
     }
-
-    .errorWrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      & > * {
-        margin-top: 24px;
-      }
-
-      .error {
-        color: $primaryLight;
-      }
-    }
   }
 }
