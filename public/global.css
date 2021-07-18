@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased !important;
+  font-size: 14px;
 }
 
 body, b, input, textarea, select {

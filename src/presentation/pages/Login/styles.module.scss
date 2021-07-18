@@ -1,3 +1,11 @@
+@import "../../styles/partials/colors";
+
 .login {
-  background-color: #f00;
+  .header {
+    background-color: $primary;
+  }
+
+  .form {}
+
+  .footer {}
 }
