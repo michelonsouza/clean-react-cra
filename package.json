@@ -23,10 +23,9 @@
     "lint": "eslint -c .eslintrc.json 'src/**' --rule 'no-console: error' --cache --fix",
     "test": "react-scripts test --passWithNoTests --no-cache --runInBand",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:watch": "npm test -- --watch",
-    "test:staged": "npm test -- --watchAll=false --findRelatedTests",
-    "test:ci": "npm test -- --coverage --watchAll=false",
-    "eject": "react-scripts eject"
+    "test:watch": "yarn test -- --watch",
+    "test:staged": "yarn test -- --watchAll=false --findRelatedTests",
+    "test:ci": "yarn test -- --coverage"
   },
   "browserslist": {
     "production": [
