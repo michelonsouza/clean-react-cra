@@ -10,8 +10,8 @@ function Spinner(
 ): JSX.Element {
   return (
     <div
-      className={[classes.spinner, className].join(' ')}
       {...props}
+      className={[classes.spinner, className].join(' ')}
       ref={ref}
     >
       <div />
@@ -22,4 +22,4 @@ function Spinner(
   );
 }
 
-export const SpinnerWithRef = forwardRef(Spinner);
+export const SpinnerWithRef = forwardRef(Spinner) as typeof Spinner;
