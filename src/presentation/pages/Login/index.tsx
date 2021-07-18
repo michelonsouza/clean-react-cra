@@ -1,4 +1,4 @@
-import { Spinner, AuthHeader } from 'presentation/components';
+import { Spinner, AuthHeader, Footer } from 'presentation/components';
 
 import classes from './styles.module.scss';
 
@@ -36,7 +36,7 @@ export function Login(): JSX.Element {
         </div>
       </form>
 
-      <footer className={classes.footer} />
+      <Footer />
     </div>
   );
 }
