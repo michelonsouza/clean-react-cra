@@ -1,15 +1,11 @@
-import logoImage from 'assets/images/logo.svg';
-import { Spinner } from 'presentation/components';
+import { Spinner, AuthHeader } from 'presentation/components';
 
 import classes from './styles.module.scss';
 
 export function Login(): JSX.Element {
   return (
     <div className={classes.login}>
-      <header className={classes.header}>
-        <img src={logoImage} alt="4Dev" />
-        <h1>4Dev - Enquetes para Programadores</h1>
-      </header>
+      <AuthHeader />
 
       <form className={classes.form}>
         <h2>Login</h2>
