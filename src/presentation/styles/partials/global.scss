@@ -1,0 +1,33 @@
+@import "./colors";
+@import "./variables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased !important;
+  font-size: 14px;
+}
+
+body, b, input, textarea, select {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: $background;
+}
+
+button {
+  background-color: $primary;
+  color: $white;
+  border-radius: $borderRadius;
+  line-height: 40px;
+  font-size: 16px;
+  border: 1px solid $primary;
+  transition: all $transitionDurationStandard ease;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

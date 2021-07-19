@@ -1,24 +1,6 @@
 @import "../../styles/partials/colors";
 @import "../../styles/partials/variables";
 
-body {
-  background-color: $background;
-}
-
-button {
-  background-color: $primary;
-  color: $white;
-  border-radius: $borderRadius;
-  line-height: 40px;
-  font-size: 16px;
-  border: 1px solid $primary;
-  transition: all $transitionDurationStandard ease;
-
-  &:hover {
-    opacity: 0.8;
-  }
-}
-
 .login {
   display: flex;
   flex-direction: column;
