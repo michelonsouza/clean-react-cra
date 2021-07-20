@@ -1,3 +1,3 @@
 export interface Validation {
-  validate(input: Record<string, any>): string | null;
+  validate(fieldName: string, fieldValue: string): string | null;
 }

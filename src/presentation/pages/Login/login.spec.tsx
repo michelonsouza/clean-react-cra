@@ -13,10 +13,13 @@ import { Login } from '.';
 class ValidationSpy implements Validation {
   private errorMessage = '';
 
-  input?: Record<string, any>;
+  fieldName?: string;
 
-  validate(input: Record<string, any>): string | null {
-    this.input = input;
+  fieldValue?: string;
+
+  validate(fieldName: string, fieldValue: string): string | null {
+    this.fieldName = fieldName;
+    this.fieldValue = fieldValue;
     return this.errorMessage;
   }
 }
@@ -59,9 +62,8 @@ describe('LoginPage', () => {
     const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
 
     fireEvent.input(emailInput, { target: { value: email } });
-    expect(validationSpy.input).toEqual({
-      email,
-    });
+    expect(validationSpy.fieldName).toEqual('email');
+    expect(validationSpy.fieldValue).toEqual(email);
   });
 
   it('should call password validation with correct value', () => {
@@ -70,8 +72,7 @@ describe('LoginPage', () => {
     const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
 
     fireEvent.input(passwordInput, { target: { value: password } });
-    expect(validationSpy.input).toEqual({
-      password,
-    });
+    expect(validationSpy.fieldName).toEqual('password');
+    expect(validationSpy.fieldValue).toEqual(password);
   });
 });

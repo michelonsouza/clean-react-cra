@@ -26,11 +26,11 @@ export function Login({ validation }: LoginProps): JSX.Element {
   });
 
   useEffect(() => {
-    validation.validate({ email: state.email });
+    validation.validate('email', state.email);
   }, [state.email, validation]);
 
   useEffect(() => {
-    validation.validate({ password: state.password });
+    validation.validate('password', state.password);
   }, [state.password, validation]);
 
   return (
