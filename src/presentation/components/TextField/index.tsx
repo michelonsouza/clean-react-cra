@@ -5,6 +5,7 @@ import {
   useMemo,
   InputHTMLAttributes,
   Ref,
+  ChangeEvent,
 } from 'react';
 
 import { useFormContext } from 'presentation/contexts';
@@ -17,19 +18,29 @@ function TextField(
   { className, name, type = 'text', ...props }: TextFieldProps,
   ref?: Ref<HTMLInputElement>,
 ): JSX.Element {
-  const { errorState } = useFormContext();
+  const formContext = useFormContext();
 
   const memoStatus = useMemo(() => {
-    const hasError = !!errorState[name as keyof typeof errorState];
+    const hasError = !!formContext[`${name}Error` as keyof typeof formContext];
 
     return hasError ? '🔴' : '🟢';
-  }, [errorState, name]);
+  }, [formContext, name]);
 
   const memoTitle = useMemo(() => {
-    const hasError = errorState[name as keyof typeof errorState];
+    const hasError = formContext[`${name}Error` as keyof typeof formContext];
 
     return hasError ? String(hasError) : undefined;
-  }, [errorState, name]);
+  }, [formContext, name]);
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      formContext.setState({
+        ...formContext,
+        [name as keyof typeof formContext]: event.target.value,
+      });
+    },
+    [formContext, name],
+  );
 
   const handleInputEvent = useCallback(
     (readOnly: boolean) => (event: FocusEvent<HTMLInputElement>) => {
@@ -48,6 +59,7 @@ function TextField(
         type={type}
         ref={ref}
         readOnly
+        onChange={handleChange}
         onFocus={handleInputEvent(false)}
         onBlur={handleInputEvent(true)}
       />

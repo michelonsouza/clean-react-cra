@@ -1,18 +1,13 @@
 import { createContext, useContext } from 'react';
 
-export type State = {
+export type FormContextData = {
   isLoading: boolean;
-};
-
-export type ErrorState = {
+  emailError: string;
+  passwordError: string;
+  mainError?: string;
   email: string;
   password: string;
-  mainError?: string;
-};
-
-export type FormContextData = {
-  state: State;
-  errorState: ErrorState;
+  setState(state: FormContextData): void;
 };
 
 export const FormContext = createContext<FormContextData>(

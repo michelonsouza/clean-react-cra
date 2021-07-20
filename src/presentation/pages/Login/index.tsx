@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   AuthHeader,
@@ -6,26 +6,38 @@ import {
   FormStatus,
   TextField,
 } from 'presentation/components';
-import { FormContext, State, ErrorState } from 'presentation/contexts';
+import { FormContext, FormContextData } from 'presentation/contexts';
+import { Validation } from 'presentation/protocols';
 
 import classes from './styles.module.scss';
 
-export function Login(): JSX.Element {
-  const [state] = useState<State>({
+interface LoginProps {
+  validation: Validation;
+}
+
+export function Login({ validation }: LoginProps): JSX.Element {
+  const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
+    emailError: 'Campo obrigatório',
+    passwordError: 'Campo obrigatório',
+    mainError: '',
+    email: '',
+    password: '',
   });
 
-  const [errorState] = useState<ErrorState>({
-    email: 'Campo obrigatório',
-    password: 'Campo obrigatório',
-    mainError: '',
-  });
+  useEffect(() => {
+    validation.validate({ email: state.email });
+  }, [state.email, validation]);
+
+  useEffect(() => {
+    validation.validate({ password: state.password });
+  }, [state.password, validation]);
 
   return (
     <div className={classes.login}>
       <AuthHeader />
 
-      <FormContext.Provider value={{ state, errorState }}>
+      <FormContext.Provider value={{ ...state, setState }}>
         <form className={classes.form}>
           <h2>Login</h2>
 

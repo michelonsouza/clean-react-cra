@@ -4,10 +4,7 @@ import { useFormContext } from 'presentation/contexts';
 import classes from './styles.module.scss';
 
 export function FormStatus(): JSX.Element {
-  const {
-    state: { isLoading },
-    errorState: { mainError },
-  } = useFormContext();
+  const { isLoading, mainError } = useFormContext();
 
   return (
     <div data-testid="error-wrapper" className={classes.errorWrapper}>

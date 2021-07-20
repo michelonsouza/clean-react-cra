@@ -49,8 +49,10 @@
         "devDependencies": [
           "**/*.test.js",
           "**/*.spec.js",
+          "**/*.spec.jsx",
           "**/*.test.ts",
           "**/*.spec.ts",
+          "**/*.spec.tsx",
           "**/mocks/*"
         ]
       }
