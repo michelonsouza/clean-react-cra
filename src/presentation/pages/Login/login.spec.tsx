@@ -90,4 +90,18 @@ describe('LoginPage', () => {
     expect(passwordStatus.title).toBe(validationSpy.errorMessage);
     expect(passwordStatus.textContent).toBe('🔴');
   });
+
+  it('should show valid passowrd if validation succeeds', () => {
+    const { sut, validationSpy } = makeSut();
+    const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
+    validationSpy.errorMessage = null;
+
+    fireEvent.input(passwordInput, { target: { value: faker.random.word() } });
+    fireEvent.blur(passwordInput);
+
+    const passwordStatus = sut.getByTestId('password-status');
+
+    expect(passwordStatus.title).toBe('Tudo certo');
+    expect(passwordStatus.textContent).toBe('🟢');
+  });
 });
