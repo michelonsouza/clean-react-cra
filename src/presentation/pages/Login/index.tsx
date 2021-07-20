@@ -38,7 +38,12 @@ export function Login(): JSX.Element {
             placeholder="Digite sua senha"
           />
 
-          <button className={classes.submitButton} type="submit">
+          <button
+            data-testid="submit"
+            type="submit"
+            className={classes.submitButton}
+            disabled
+          >
             Entrar
           </button>
 
