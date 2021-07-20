@@ -19,7 +19,7 @@ export function Login({ validation }: LoginProps): JSX.Element {
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
     emailError: '',
-    passwordError: 'Campo obrigatório',
+    passwordError: '',
     mainError: '',
     email: '',
     password: '',
@@ -30,10 +30,13 @@ export function Login({ validation }: LoginProps): JSX.Element {
       ...oldState,
       emailError: validation.validate('email', state.email),
     }));
-  }, [state.email, validation]);
+  }, [state.email, state.password, validation]);
 
   useEffect(() => {
-    validation.validate('password', state.password);
+    setState(oldState => ({
+      ...oldState,
+      passwordError: validation.validate('password', state.password),
+    }));
   }, [state.password, validation]);
 
   return (
