@@ -1,7 +1,7 @@
 import { Validation } from 'presentation/protocols';
 
 export class ValidationSpy implements Validation {
-  errorMessage = '';
+  errorMessage: string | null = '';
 
   fieldName?: string;
 

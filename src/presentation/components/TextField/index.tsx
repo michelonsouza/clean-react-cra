@@ -29,7 +29,7 @@ function TextField(
   const memoTitle = useMemo(() => {
     const hasError = formContext[`${name}Error` as keyof typeof formContext];
 
-    return hasError ? String(hasError) : undefined;
+    return hasError ? String(hasError) : 'Tudo certo';
   }, [formContext, name]);
 
   const handleChange = useCallback(
