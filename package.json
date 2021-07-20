@@ -48,6 +48,7 @@
       "!<rootDir>/src/domain/models/**/*",
       "!<rootDir>/src/domain/usecases/**/*",
       "!<rootDir>/src/presentation/protocols/**/*",
+      "!<rootDir>/src/reportWebVitals.ts",
       "!**/*.d.ts"
     ],
     "moduleNameMapper": {
