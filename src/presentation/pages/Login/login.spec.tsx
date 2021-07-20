@@ -17,6 +17,7 @@ type SutTypes = {
 
 function makeSut(): SutTypes {
   const validationSpy = new ValidationSpy();
+  validationSpy.errorMessage = faker.random.words(7);
   const sut = render(<Login validation={validationSpy} />);
   return {
     sut,
@@ -28,7 +29,7 @@ describe('LoginPage', () => {
   afterEach(cleanup);
 
   it('should start with initial state', () => {
-    const { sut } = makeSut();
+    const { sut, validationSpy } = makeSut();
     const errorWrapper = sut.getByTestId('error-wrapper');
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
     const emailStatus = sut.getByTestId('email-status');
@@ -36,7 +37,7 @@ describe('LoginPage', () => {
 
     expect(errorWrapper.childElementCount).toBe(0);
     expect(submitButton.disabled).toBe(true);
-    expect(emailStatus.title).toBe('Campo obrigatório');
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
     expect(emailStatus.textContent).toBe('🔴');
     expect(passwordStatus.title).toBe('Campo obrigatório');
     expect(passwordStatus.textContent).toBe('🔴');
@@ -48,6 +49,7 @@ describe('LoginPage', () => {
     const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
 
     fireEvent.input(emailInput, { target: { value: email } });
+    fireEvent.blur(emailInput);
     expect(validationSpy.fieldName).toEqual('email');
     expect(validationSpy.fieldValue).toEqual(email);
   });
@@ -58,7 +60,21 @@ describe('LoginPage', () => {
     const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
 
     fireEvent.input(passwordInput, { target: { value: password } });
+    fireEvent.blur(passwordInput);
     expect(validationSpy.fieldName).toEqual('password');
     expect(validationSpy.fieldValue).toEqual(password);
+  });
+
+  it('should show email error is validation failed', () => {
+    const { sut, validationSpy } = makeSut();
+    const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
+
+    fireEvent.input(emailInput, { target: { value: faker.random.word() } });
+    fireEvent.blur(emailInput);
+
+    const emailStatus = sut.getByTestId('email-status');
+
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
+    expect(emailStatus.textContent).toBe('🔴');
   });
 });
