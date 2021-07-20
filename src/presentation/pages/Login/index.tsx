@@ -6,21 +6,26 @@ import {
   FormStatus,
   TextField,
 } from 'presentation/components';
-import { FormContext, FormContextData } from 'presentation/contexts';
+import { FormContext, State, ErrorState } from 'presentation/contexts';
 
 import classes from './styles.module.scss';
 
 export function Login(): JSX.Element {
-  const [state, setState] = useState<FormContextData>({
+  const [state] = useState<State>({
     isLoading: false,
-    errorMessage: '',
+  });
+
+  const [errorState] = useState<ErrorState>({
+    email: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    mainError: '',
   });
 
   return (
     <div className={classes.login}>
       <AuthHeader />
 
-      <FormContext.Provider value={state}>
+      <FormContext.Provider value={{ state, errorState }}>
         <form className={classes.form}>
           <h2>Login</h2>
 
