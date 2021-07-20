@@ -6,23 +6,9 @@ import {
 } from '@testing-library/react';
 import faker from 'faker';
 
-import { Validation } from 'presentation/protocols';
+import { ValidationSpy } from 'presentation/mocks';
 
 import { Login } from '.';
-
-class ValidationSpy implements Validation {
-  private errorMessage = '';
-
-  fieldName?: string;
-
-  fieldValue?: string;
-
-  validate(fieldName: string, fieldValue: string): string | null {
-    this.fieldName = fieldName;
-    this.fieldValue = fieldValue;
-    return this.errorMessage;
-  }
-}
 
 type SutTypes = {
   sut: RenderResult;
