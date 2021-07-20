@@ -18,7 +18,7 @@ interface LoginProps {
 export function Login({ validation }: LoginProps): JSX.Element {
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
-    emailError: 'Campo obrigatório',
+    emailError: '',
     passwordError: 'Campo obrigatório',
     mainError: '',
     email: '',
@@ -26,7 +26,10 @@ export function Login({ validation }: LoginProps): JSX.Element {
   });
 
   useEffect(() => {
-    validation.validate('email', state.email);
+    setState(oldState => ({
+      ...oldState,
+      emailError: validation.validate('email', state.email),
+    }));
   }, [state.email, validation]);
 
   useEffect(() => {

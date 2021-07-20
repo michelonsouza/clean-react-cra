@@ -2,8 +2,8 @@ import { createContext, useContext } from 'react';
 
 export type FormContextData = {
   isLoading: boolean;
-  emailError: string;
-  passwordError: string;
+  emailError: string | null;
+  passwordError: string | null;
   mainError?: string;
   email: string;
   password: string;
