@@ -9,6 +9,7 @@ import {
 } from 'react';
 
 import { useFormContext } from 'presentation/contexts';
+import { useTestId } from 'presentation/hooks';
 
 import classes from './styles.module.scss';
 
@@ -19,6 +20,8 @@ function TextField(
   ref?: Ref<HTMLInputElement>,
 ): JSX.Element {
   const formContext = useFormContext();
+  const inputTestId = useTestId(`${name}-input`);
+  const statusTestId = useTestId(`${name}-status`);
 
   const memoStatus = useMemo(() => {
     const hasError = !!formContext[`${name}Error` as keyof typeof formContext];
@@ -54,7 +57,7 @@ function TextField(
       <input
         autoComplete="off"
         {...props}
-        data-testid={`${name}-input`}
+        {...inputTestId}
         name={name}
         type={type}
         ref={ref}
@@ -63,11 +66,7 @@ function TextField(
         onFocus={handleInputEvent(false)}
         onBlur={handleInputEvent(true)}
       />
-      <span
-        data-testid={`${name}-status`}
-        title={memoTitle}
-        className={classes.status}
-      >
+      <span {...statusTestId} title={memoTitle} className={classes.status}>
         {memoStatus}
       </span>
     </div>
