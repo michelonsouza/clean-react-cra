@@ -21,6 +21,7 @@ interface LoginProps {
 export function Login({ validation, authentication }: LoginProps): JSX.Element {
   const submitButtonTestId = useTestId('submit');
   const formTestId = useTestId('form');
+  const accessTokenKey = `${process.env.REACT_APP_LOCAL_STORAGE_PREFIX}:accessToken`;
 
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
@@ -54,7 +55,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
           password: state.password,
         });
 
-        localStorage.setItem('accessToken', account.accessToken);
+        localStorage.setItem(accessTokenKey, account.accessToken);
       } catch (error) {
         setState(oldState => ({
           ...oldState,
@@ -70,6 +71,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
       state.email,
       state.password,
       authentication,
+      accessTokenKey,
     ],
   );
 
