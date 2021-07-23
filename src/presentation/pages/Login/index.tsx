@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useMemo, FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Authentication } from 'domain/usecases';
 import {
@@ -21,6 +22,7 @@ interface LoginProps {
 export function Login({ validation, authentication }: LoginProps): JSX.Element {
   const submitButtonTestId = useTestId('submit');
   const formTestId = useTestId('form');
+  const signupTestId = useTestId('signup');
   const accessTokenKey = `${process.env.REACT_APP_LOCAL_STORAGE_PREFIX}:accessToken`;
 
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
@@ -120,7 +122,9 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
             Entrar
           </button>
 
-          <span className={classes.link}>Criar conta</span>
+          <Link {...signupTestId} to="/signup" className={classes.link}>
+            Criar conta
+          </Link>
 
           <FormStatus />
         </form>
