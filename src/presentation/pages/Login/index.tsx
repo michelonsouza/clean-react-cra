@@ -31,12 +31,16 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
   });
 
   const memoSubmitIsDisabled = useMemo(() => {
-    return !!(state.emailError || state.passwordError);
-  }, [state.emailError, state.passwordError]);
+    return !!(state.emailError || state.passwordError || state.isLoading);
+  }, [state.emailError, state.passwordError, state.isLoading]);
 
   const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
+
+      if (state.isLoading) {
+        return;
+      }
 
       setState(oldState => ({
         ...oldState,
@@ -48,7 +52,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
         password: state.password,
       });
     },
-    [state.email, state.password, authentication],
+    [state.isLoading, state.email, state.password, authentication],
   );
 
   useEffect(() => {
