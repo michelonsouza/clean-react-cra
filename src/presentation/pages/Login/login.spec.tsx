@@ -15,9 +15,15 @@ type SutTypes = {
   validationSpy: ValidationSpy;
 };
 
-function makeSut(): SutTypes {
+type SutParams = {
+  validationError: string;
+};
+
+function makeSut(params?: SutParams): SutTypes {
   const validationSpy = new ValidationSpy();
-  validationSpy.errorMessage = faker.random.words(7);
+
+  validationSpy.errorMessage = params?.validationError || null;
+
   const sut = render(<Login validation={validationSpy} />);
   return {
     sut,
@@ -29,7 +35,9 @@ describe('LoginPage', () => {
   afterEach(cleanup);
 
   it('should start with initial state', () => {
-    const { sut, validationSpy } = makeSut();
+    const { sut, validationSpy } = makeSut({
+      validationError: faker.random.words(7),
+    });
     const errorWrapper = sut.getByTestId('error-wrapper');
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
     const emailStatus = sut.getByTestId('email-status');
@@ -66,7 +74,9 @@ describe('LoginPage', () => {
   });
 
   it('should show email error is validation failed', () => {
-    const { sut, validationSpy } = makeSut();
+    const { sut, validationSpy } = makeSut({
+      validationError: faker.random.words(7),
+    });
     const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
 
     fireEvent.input(emailInput, { target: { value: faker.random.word() } });
@@ -79,7 +89,9 @@ describe('LoginPage', () => {
   });
 
   it('should show password error is validation failed', () => {
-    const { sut, validationSpy } = makeSut();
+    const { sut, validationSpy } = makeSut({
+      validationError: faker.random.words(7),
+    });
     const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
 
     fireEvent.input(passwordInput, { target: { value: faker.random.word() } });
@@ -92,9 +104,8 @@ describe('LoginPage', () => {
   });
 
   it('should show valid email if validation succeeds', () => {
-    const { sut, validationSpy } = makeSut();
+    const { sut } = makeSut();
     const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
-    validationSpy.errorMessage = null;
 
     fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
     fireEvent.blur(emailInput);
@@ -105,10 +116,9 @@ describe('LoginPage', () => {
     expect(emailStatus.textContent).toBe('🟢');
   });
 
-  it('should show valid passowrd if validation succeeds', () => {
-    const { sut, validationSpy } = makeSut();
+  it('should show valid passoword if validation succeeds', () => {
+    const { sut } = makeSut();
     const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
-    validationSpy.errorMessage = null;
 
     fireEvent.input(passwordInput, { target: { value: faker.random.word() } });
     fireEvent.blur(passwordInput);
@@ -120,10 +130,9 @@ describe('LoginPage', () => {
   });
 
   it('should enable submit button if form is valid', () => {
-    const { sut, validationSpy } = makeSut();
+    const { sut } = makeSut();
     const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
     const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
-    validationSpy.errorMessage = null;
 
     fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
     fireEvent.input(passwordInput, { target: { value: faker.random.word() } });
