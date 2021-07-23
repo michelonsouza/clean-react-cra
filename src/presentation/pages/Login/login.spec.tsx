@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import {
   render,
   RenderResult,
@@ -5,6 +6,8 @@ import {
   cleanup,
   waitFor,
 } from '@testing-library/react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import faker from 'faker';
 
 import 'jest-localstorage-mock';
@@ -24,6 +27,10 @@ type SutParams = {
   validationError: string;
 };
 
+const history = createMemoryHistory({
+  initialEntries: ['/login'],
+});
+
 function makeSut(params?: SutParams): SutTypes {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
@@ -31,7 +38,9 @@ function makeSut(params?: SutParams): SutTypes {
   validationSpy.errorMessage = params?.validationError || null;
 
   const sut = render(
-    <Login validation={validationSpy} authentication={authenticationSpy} />,
+    <Router history={history}>
+      <Login validation={validationSpy} authentication={authenticationSpy} />
+    </Router>,
   );
 
   return {
@@ -252,5 +261,15 @@ describe('LoginPage', () => {
       localStorageKey,
       authenticationSpy.account.accessToken,
     );
+  });
+
+  it('should go to signup page', async () => {
+    const { sut } = makeSut();
+    const signup = sut.getByTestId('signup');
+
+    fireEvent.click(signup);
+
+    expect(history.length).toBe(2);
+    expect(history.location.pathname).toBe('/signup');
   });
 });
