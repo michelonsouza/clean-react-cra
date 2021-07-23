@@ -118,4 +118,18 @@ describe('LoginPage', () => {
     expect(passwordStatus.title).toBe('Tudo certo');
     expect(passwordStatus.textContent).toBe('🟢');
   });
+
+  it('should enable submit button if form is valid', () => {
+    const { sut, validationSpy } = makeSut();
+    const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
+    const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
+    validationSpy.errorMessage = null;
+
+    fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
+    fireEvent.input(passwordInput, { target: { value: faker.random.word() } });
+
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
+
+    expect(submitButton.disabled).toBe(false);
+  });
 });
