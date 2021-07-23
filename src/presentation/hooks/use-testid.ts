@@ -1,5 +1,5 @@
 export function useTestId(id: string): Record<string, string> {
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.REACT_APP_NODE_ENV === 'production') {
     return {};
   }
 
