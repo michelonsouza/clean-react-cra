@@ -141,4 +141,21 @@ describe('LoginPage', () => {
 
     expect(submitButton.disabled).toBe(false);
   });
+
+  it('should show spinner on submit', () => {
+    const { sut } = makeSut();
+    const emailInput = sut.getByTestId('email-input') as HTMLInputElement;
+    const passwordInput = sut.getByTestId('password-input') as HTMLInputElement;
+
+    fireEvent.input(emailInput, { target: { value: faker.internet.email() } });
+    fireEvent.input(passwordInput, { target: { value: faker.random.word() } });
+
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
+
+    fireEvent.click(submitButton);
+
+    const spinner = sut.getAllByTestId('spinner');
+
+    expect(spinner).toBeTruthy();
+  });
 });
