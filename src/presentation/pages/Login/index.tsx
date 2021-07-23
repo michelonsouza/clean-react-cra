@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Authentication } from 'domain/usecases';
 import {
@@ -20,6 +20,7 @@ interface LoginProps {
 }
 
 export function Login({ validation, authentication }: LoginProps): JSX.Element {
+  const history = useHistory();
   const submitButtonTestId = useTestId('submit');
   const formTestId = useTestId('form');
   const signupTestId = useTestId('signup');
@@ -58,6 +59,8 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
         });
 
         localStorage.setItem(accessTokenKey, account.accessToken);
+
+        history.replace('/');
       } catch (error) {
         setState(oldState => ({
           ...oldState,
@@ -74,6 +77,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
       state.password,
       authentication,
       accessTokenKey,
+      history,
     ],
   );
 
