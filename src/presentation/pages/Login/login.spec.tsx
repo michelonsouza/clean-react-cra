@@ -7,6 +7,8 @@ import {
 } from '@testing-library/react';
 import faker from 'faker';
 
+import 'jest-localstorage-mock';
+
 import { InvalidCredentialsError } from 'domain/errors';
 import { ValidationSpy, AuthenticationSpy } from 'presentation/mocks';
 
@@ -88,6 +90,10 @@ function simulateStatusForField(
 
 describe('LoginPage', () => {
   afterEach(cleanup);
+
+  beforeEach(() => {
+    localStorage.clear();
+  });
 
   it('should start with initial state', () => {
     const { sut, validationSpy } = makeSut({
@@ -234,5 +240,16 @@ describe('LoginPage', () => {
 
     expect(mainError.textContent).toBe(error.message);
     expect(errorWrapper.childElementCount).toBe(1);
+  });
+
+  it('should add accessTocken to localStorage on success', async () => {
+    const { sut, authenticationSpy } = makeSut();
+
+    await simulateValidSubmit(sut);
+
+    expect(localStorage.setItem).toBeCalledWith(
+      'accessToken',
+      authenticationSpy.account.accessToken,
+    );
   });
 });
