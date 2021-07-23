@@ -20,6 +20,7 @@ interface LoginProps {
 
 export function Login({ validation, authentication }: LoginProps): JSX.Element {
   const submitButtonTestId = useTestId('submit');
+  const formTestId = useTestId('form');
 
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
@@ -38,7 +39,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
     async (event: FormEvent<HTMLFormElement>): Promise<void> => {
       event.preventDefault();
 
-      if (state.isLoading) {
+      if (state.isLoading || state.emailError || state.passwordError) {
         return;
       }
 
@@ -52,7 +53,14 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
         password: state.password,
       });
     },
-    [state.isLoading, state.email, state.password, authentication],
+    [
+      state.isLoading,
+      state.emailError,
+      state.passwordError,
+      state.email,
+      state.password,
+      authentication,
+    ],
   );
 
   useEffect(() => {
@@ -74,7 +82,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
       <AuthHeader />
 
       <FormContext.Provider value={{ ...state, setState }}>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form {...formTestId} className={classes.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
 
           <TextField
