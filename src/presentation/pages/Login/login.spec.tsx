@@ -261,6 +261,9 @@ describe('LoginPage', () => {
       localStorageKey,
       authenticationSpy.account.accessToken,
     );
+
+    expect(history.length).toBe(1);
+    expect(history.location.pathname).toBe('/');
   });
 
   it('should go to signup page', async () => {
