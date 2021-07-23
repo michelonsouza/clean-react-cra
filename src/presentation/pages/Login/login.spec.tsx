@@ -244,11 +244,12 @@ describe('LoginPage', () => {
 
   it('should add accessToken to localStorage on success', async () => {
     const { sut, authenticationSpy } = makeSut();
+    const localStorageKey = `${process.env.REACT_APP_LOCAL_STORAGE_PREFIX}:accessToken`;
 
     await simulateValidSubmit(sut);
 
     expect(localStorage.setItem).toBeCalledWith(
-      'accessToken',
+      localStorageKey,
       authenticationSpy.account.accessToken,
     );
   });
