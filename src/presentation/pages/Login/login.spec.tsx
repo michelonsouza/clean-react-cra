@@ -242,7 +242,7 @@ describe('LoginPage', () => {
     expect(errorWrapper.childElementCount).toBe(1);
   });
 
-  it('should add accessTocken to localStorage on success', async () => {
+  it('should add accessToken to localStorage on success', async () => {
     const { sut, authenticationSpy } = makeSut();
 
     await simulateValidSubmit(sut);
