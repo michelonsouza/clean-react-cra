@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import {
   AuthHeader,
@@ -7,6 +7,7 @@ import {
   TextField,
 } from 'presentation/components';
 import { FormContext, FormContextData } from 'presentation/contexts';
+import { useTestId } from 'presentation/hooks';
 import { Validation } from 'presentation/protocols';
 
 import classes from './styles.module.scss';
@@ -16,6 +17,8 @@ interface LoginProps {
 }
 
 export function Login({ validation }: LoginProps): JSX.Element {
+  const submitButtonTestId = useTestId('submit');
+
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
     emailError: '',
@@ -24,6 +27,10 @@ export function Login({ validation }: LoginProps): JSX.Element {
     email: '',
     password: '',
   });
+
+  const memoSubmitIsDisabled = useMemo(() => {
+    return !!(state.emailError || state.passwordError);
+  }, [state.emailError, state.passwordError]);
 
   useEffect(() => {
     setState(oldState => ({
@@ -62,10 +69,10 @@ export function Login({ validation }: LoginProps): JSX.Element {
           />
 
           <button
-            data-testid="submit"
+            {...submitButtonTestId}
             type="submit"
             className={classes.submitButton}
-            disabled
+            disabled={memoSubmitIsDisabled}
           >
             Entrar
           </button>
