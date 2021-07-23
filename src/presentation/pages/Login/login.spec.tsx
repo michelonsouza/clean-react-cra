@@ -3,9 +3,11 @@ import {
   RenderResult,
   fireEvent,
   cleanup,
+  waitFor,
 } from '@testing-library/react';
 import faker from 'faker';
 
+import { InvalidCredentialsError } from 'domain/errors';
 import { ValidationSpy, AuthenticationSpy } from 'presentation/mocks';
 
 import { Login } from '.';
@@ -58,17 +60,19 @@ function populatePasswordField(
   return passwordInput;
 }
 
-function simulateValidSubmit(
+async function simulateValidSubmit(
   sut: RenderResult,
   email = faker.internet.email(),
   password = faker.internet.password(),
-): void {
+): Promise<void> {
   populateEmailField(sut, email);
   populatePasswordField(sut, password);
 
-  const submitButton = sut.getByTestId('submit') as HTMLButtonElement;
+  const form = sut.getByTestId('form') as HTMLFormElement;
 
-  fireEvent.click(submitButton);
+  fireEvent.submit(form);
+
+  await waitFor(() => form);
 }
 
 function simulateStatusForField(
@@ -192,11 +196,11 @@ describe('LoginPage', () => {
     expect(authenticationSpy.params).toEqual({ email, password });
   });
 
-  it('should call authentication only once', () => {
+  it('should call authentication only once', async () => {
     const { sut, authenticationSpy } = makeSut();
 
-    simulateValidSubmit(sut);
-    simulateValidSubmit(sut);
+    await simulateValidSubmit(sut);
+    await simulateValidSubmit(sut);
 
     expect(authenticationSpy.callsCount).toBe(1);
   });
@@ -213,5 +217,22 @@ describe('LoginPage', () => {
     fireEvent.submit(form);
 
     expect(authenticationSpy.callsCount).toBe(0);
+  });
+
+  it('should presents error if authentication fails', async () => {
+    const { sut, authenticationSpy } = makeSut();
+    const error = new InvalidCredentialsError();
+
+    jest
+      .spyOn(authenticationSpy, 'auth')
+      .mockReturnValueOnce(Promise.reject(error));
+
+    await simulateValidSubmit(sut);
+
+    const mainError = sut.getByTestId('main-error');
+    const errorWrapper = sut.getByTestId('error-wrapper');
+
+    expect(mainError.textContent).toBe(error.message);
+    expect(errorWrapper.childElementCount).toBe(1);
   });
 });
