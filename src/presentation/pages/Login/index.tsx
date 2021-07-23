@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useMemo, FormEvent } from 'react';
 
+import { Authentication } from 'domain/usecases';
 import {
   AuthHeader,
   Footer,
@@ -14,9 +15,10 @@ import classes from './styles.module.scss';
 
 interface LoginProps {
   validation: Validation;
+  authentication: Authentication;
 }
 
-export function Login({ validation }: LoginProps): JSX.Element {
+export function Login({ validation, authentication }: LoginProps): JSX.Element {
   const submitButtonTestId = useTestId('submit');
 
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
@@ -32,13 +34,21 @@ export function Login({ validation }: LoginProps): JSX.Element {
     return !!(state.emailError || state.passwordError);
   }, [state.emailError, state.passwordError]);
 
-  const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setState(oldState => ({
-      ...oldState,
-      isLoading: true,
-    }));
-  }, []);
+  const handleSubmit = useCallback(
+    async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+      event.preventDefault();
+
+      setState(oldState => ({
+        ...oldState,
+        isLoading: true,
+      }));
+      await authentication.auth({
+        email: state.email,
+        password: state.password,
+      });
+    },
+    [state.email, state.password, authentication],
+  );
 
   useEffect(() => {
     setState(oldState => ({
