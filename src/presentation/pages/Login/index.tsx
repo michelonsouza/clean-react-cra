@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useCallback, useEffect, useMemo, FormEvent } from 'react';
 
 import {
   AuthHeader,
@@ -32,6 +32,14 @@ export function Login({ validation }: LoginProps): JSX.Element {
     return !!(state.emailError || state.passwordError);
   }, [state.emailError, state.passwordError]);
 
+  const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setState(oldState => ({
+      ...oldState,
+      isLoading: true,
+    }));
+  }, []);
+
   useEffect(() => {
     setState(oldState => ({
       ...oldState,
@@ -51,7 +59,7 @@ export function Login({ validation }: LoginProps): JSX.Element {
       <AuthHeader />
 
       <FormContext.Provider value={{ ...state, setState }}>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
 
           <TextField
