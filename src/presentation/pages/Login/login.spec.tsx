@@ -6,23 +6,9 @@ import {
 } from '@testing-library/react';
 import faker from 'faker';
 
-import { mockAccountModel } from 'domain/mocks';
-import { AccountModel } from 'domain/models';
-import { Authentication, AuthenticationParams } from 'domain/usecases';
-import { ValidationSpy } from 'presentation/mocks';
+import { ValidationSpy, AuthenticationSpy } from 'presentation/mocks';
 
 import { Login } from '.';
-
-class AuthenticationSpy implements Authentication {
-  private account = mockAccountModel();
-
-  params?: AuthenticationParams;
-
-  async auth(params: AuthenticationParams): Promise<AccountModel> {
-    this.params = params;
-    return Promise.resolve(this.account);
-  }
-}
 
 type SutTypes = {
   sut: RenderResult;
@@ -43,6 +29,7 @@ function makeSut(params?: SutParams): SutTypes {
   const sut = render(
     <Login validation={validationSpy} authentication={authenticationSpy} />,
   );
+
   return {
     sut,
     validationSpy,
