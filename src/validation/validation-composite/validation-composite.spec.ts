@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import faker from 'faker';
 
 import { FieldValidationSpy } from 'validation/mocks';
@@ -10,10 +9,13 @@ type SutTypes = {
   fieldValidationsSpy: FieldValidationSpy[];
 };
 
-function makeSut(fieldName: string): SutTypes {
-  const fieldValidationSpy = new FieldValidationSpy(fieldName);
-  const fieldValidationSpy2 = new FieldValidationSpy(fieldName);
-  const fieldValidationsSpy = [fieldValidationSpy, fieldValidationSpy2];
+function makeSut(
+  fieldName: string,
+  fieldValidationsSpy = [
+    new FieldValidationSpy(fieldName),
+    new FieldValidationSpy(fieldName),
+  ],
+): SutTypes {
   const sut = new ValidationComposite(fieldValidationsSpy);
 
   return {
@@ -29,16 +31,21 @@ describe('ValidationComposite', () => {
     const [fieldValidationSpy, fieldValidationSpy2] = fieldValidationsSpy;
 
     const firstErrorMessage = faker.random.words();
-    const secondErrorMessage = faker.random.words();
-    const mockedValue = faker.random.words();
 
     fieldValidationSpy.error = new Error(firstErrorMessage);
-    fieldValidationSpy2.error = new Error(secondErrorMessage);
+    fieldValidationSpy2.error = new Error(faker.random.words());
 
-    const error = sut.validate(fieldName, mockedValue);
+    const error = sut.validate(fieldName, faker.random.word());
 
     expect(error).toBe(firstErrorMessage);
   });
-});
 
-export {};
+  it('should return falsy if validation success', () => {
+    const fieldName = faker.database.column();
+    const { sut } = makeSut(fieldName);
+
+    const error = sut.validate(fieldName, faker.random.word());
+
+    expect(error).toBeFalsy();
+  });
+});
