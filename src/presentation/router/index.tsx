@@ -1,11 +1,17 @@
-import { Suspense, LazyExoticComponent } from 'react';
+import { useEffect, Suspense, LazyExoticComponent } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import { disableDevtools } from 'presentation/utils';
 
 interface RouterProps {
   makeLogin: LazyExoticComponent<any>;
 }
 
 export function Router({ makeLogin }: RouterProps): JSX.Element {
+  useEffect(() => {
+    disableDevtools();
+  }, []);
+
   return (
     <BrowserRouter>
       <Switch>

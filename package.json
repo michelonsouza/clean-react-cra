@@ -39,7 +39,8 @@
   "jest": {
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/src/reportWebVitals.ts"
+      "!<rootDir>/src/reportWebVitals.ts",
+      "!<rootDir>/src/presentation/utils/disable-devtools.ts"
     ],
     "moduleNameMapper": {
       "\\.scss$": "identity-obj-proxy"

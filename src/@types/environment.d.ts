@@ -8,8 +8,8 @@ declare global {
       HOST?: string;
       HTTPS?: BooleanType;
       REACT_APP_NODE_ENV: ReactEnvType;
-      REACT_APP_ENCRYPT_KEY?: string;
-      REACT_APP_LOCAL_STORAGE_PREFIX?: string;
+      REACT_APP_ENCRYPT_KEY: string;
+      REACT_APP_LOCAL_STORAGE_PREFIX: string;
       REACT_APP_API_BASE_URL: string;
     }
   }
