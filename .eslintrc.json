@@ -53,7 +53,8 @@
           "**/*.test.ts",
           "**/*.spec.ts",
           "**/*.spec.tsx",
-          "**/mocks/*"
+          "**/mocks/*",
+          "src/setupTests.ts"
         ],
         "bundledDependencies": [
           "**/*.test.js",
@@ -62,7 +63,8 @@
           "**/*.test.ts",
           "**/*.spec.ts",
           "**/*.spec.tsx",
-          "**/mocks/*"
+          "**/mocks/*",
+          "src/setupTests.ts"
         ],
         "peerDependencies": [
           "**/*.test.js",
@@ -71,7 +73,8 @@
           "**/*.test.ts",
           "**/*.spec.ts",
           "**/*.spec.tsx",
-          "**/mocks/*"
+          "**/mocks/*",
+          "src/setupTests.ts"
         ],
         "optionalDependencies": [
           "**/*.test.js",
@@ -80,7 +83,8 @@
           "**/*.test.ts",
           "**/*.spec.ts",
           "**/*.spec.tsx",
-          "**/mocks/*"
+          "**/mocks/*",
+          "src/setupTests.ts"
         ]
       }
     ],
