@@ -14,7 +14,7 @@ import { Validation } from 'presentation/protocols';
 
 import classes from './styles.module.scss';
 
-interface LoginProps {
+export interface LoginProps {
   validation: Validation;
   authentication: Authentication;
 }
