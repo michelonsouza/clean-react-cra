@@ -8,11 +8,13 @@ import { ValidationComposite } from '.';
 describe('ValidationComposite', () => {
   it('should return error if any validation fails', () => {
     const fieldName = faker.database.column();
-    const errorMessage = faker.random.words();
+    const firstErrorMessage = faker.random.words();
+    const secondErrorMessage = faker.random.words();
     const fieldValidationSpy = new FieldValidationSpy(fieldName);
     const fieldValidationSpy2 = new FieldValidationSpy(fieldName);
 
-    fieldValidationSpy2.error = new Error(errorMessage);
+    fieldValidationSpy.error = new Error(firstErrorMessage);
+    fieldValidationSpy2.error = new Error(secondErrorMessage);
 
     const sut = new ValidationComposite([
       fieldValidationSpy,
@@ -21,7 +23,7 @@ describe('ValidationComposite', () => {
 
     const error = sut.validate(fieldName, 'any_value');
 
-    expect(error).toBe(errorMessage);
+    expect(error).toBe(firstErrorMessage);
   });
 });
 
