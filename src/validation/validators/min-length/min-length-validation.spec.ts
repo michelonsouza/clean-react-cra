@@ -16,6 +16,14 @@ describe('MinLengthValidation', () => {
 
     expect(error).toBeInstanceOf(InvalidFieldError);
   });
+
+  it('should return falsy if value is valid', () => {
+    const sut = makeSut();
+
+    const error = sut.validate('12345');
+
+    expect(error).toBeFalsy();
+  });
 });
 
 export {};
