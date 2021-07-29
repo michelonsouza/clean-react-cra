@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/michelonsouza/clean-react-cra.svg?branch=main)](https://app.travis-ci.com/michelonsouza/clean-react-cra)
+[![Build Status](https://app.travis-ci.com/michelonsouza/clean-react-cra.svg?branch=main)](https://app.travis-ci.com/michelonsouza/clean-react-cra) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/clean-react-cra/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/clean-react-cra?branch=main)
 
 # Getting Started with Create React App
 
