@@ -22,7 +22,8 @@
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "test:watch": "yarn test -- --watch",
     "test:staged": "yarn test -- --findRelatedTests --watchAll=false",
-    "test:ci": "yarn test -- --coverage --watchAll=false"
+    "test:ci": "yarn test -- --coverage --watchAll=false",
+    "check:packages": "npx npm-check -u -s"
   },
   "browserslist": {
     "production": [
