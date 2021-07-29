@@ -16,7 +16,7 @@ import classes from './styles.module.scss';
 type TextFieldProps = InputHTMLAttributes<HTMLInputElement>;
 
 function TextField(
-  { className, name, type = 'text', ...props }: TextFieldProps,
+  { className, name, ...props }: TextFieldProps,
   ref?: Ref<HTMLInputElement>,
 ): JSX.Element {
   const formContext = useFormContext();
@@ -59,7 +59,6 @@ function TextField(
         {...props}
         {...inputTestId}
         name={name}
-        type={type}
         ref={ref}
         readOnly
         onChange={handleChange}
