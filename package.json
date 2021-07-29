@@ -23,6 +23,7 @@
     "test:watch": "yarn test -- --watch",
     "test:staged": "yarn test -- --findRelatedTests --watchAll=false",
     "test:ci": "yarn test -- --coverage --watchAll=false",
+    "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
     "check:packages": "npx npm-check -u -s"
   },
   "browserslist": {
@@ -61,6 +62,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
+    "coveralls": "^3.1.1",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
