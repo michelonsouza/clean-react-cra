@@ -4,6 +4,10 @@ import 'jest-localstorage-mock';
 
 import { LocalStorageAdapter } from './local-storage-adapter';
 
+function makeSut(): LocalStorageAdapter {
+  return new LocalStorageAdapter();
+}
+
 describe('LocalStorageAdapter', () => {
   afterEach(cleanup);
 
@@ -12,7 +16,7 @@ describe('LocalStorageAdapter', () => {
   });
 
   it('should call localStorage.setItem', async () => {
-    const sut = new LocalStorageAdapter();
+    const sut = makeSut();
     const key = faker.database.column();
     const value = faker.random.word();
 
