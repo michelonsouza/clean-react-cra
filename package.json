@@ -40,7 +40,8 @@
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/src/reportWebVitals.ts",
-      "!<rootDir>/src/presentation/utils/disable-devtools.ts"
+      "!<rootDir>/src/presentation/utils/disable-devtools.ts",
+      "!<rootDir>/src/main/index.tsx"
     ],
     "moduleNameMapper": {
       "\\.scss$": "identity-obj-proxy"
