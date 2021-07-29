@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/michelonsouza/clean-react-cra.svg?branch=main)](https://app.travis-ci.com/michelonsouza/clean-react-cra) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/clean-react-cra/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/clean-react-cra?branch=main)
+[![Version](https://img.shields.io/github/package-json/v/michelonsouza/clean-react-cra/main)](https://github.com/michelonsouza/clean-react-cra/blob/main/package.json) [![Build Status](https://app.travis-ci.com/michelonsouza/clean-react-cra.svg?branch=main)](https://app.travis-ci.com/michelonsouza/clean-react-cra) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/clean-react-cra/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/clean-react-cra?branch=main) [![js-airbnb-style](https://img.shields.io/badge/code%20style-airbnb%20(custom)-brightgreen)](https://github.com/airbnb/javascript)
 
 # Getting Started with Create React App
 
