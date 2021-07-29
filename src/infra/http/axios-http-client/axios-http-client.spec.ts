@@ -53,4 +53,20 @@ describe('AxiosHttpClient', () => {
       body,
     });
   });
+
+  it('shoud return the correct statusCode and body on faliure', async () => {
+    const { sut, mockedAxios, mockedAxiosResult } = makeSut();
+
+    mockedAxios.post.mockRejectedValueOnce({
+      response: mockedAxiosResult,
+    });
+
+    const httpResponse = await sut.post(mockPostRequestParams());
+    const { status: statusCode, data: body } = mockedAxiosResult;
+
+    expect(httpResponse).toEqual({
+      statusCode,
+      body,
+    });
+  });
 });
