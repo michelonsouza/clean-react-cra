@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import faker from 'faker';
 
 import { SetStorageSpy } from 'data/mocks';
@@ -17,5 +16,3 @@ describe('LocalSaveAccessToken', () => {
     expect(setStorageSpy.value).toBe(accessToken);
   });
 });
-
-export {};
