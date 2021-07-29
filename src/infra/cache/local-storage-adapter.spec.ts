@@ -25,5 +25,3 @@ describe('LocalStorageAdapter', () => {
     expect(localStorage.setItem).toBeCalled();
   });
 });
-
-export {};
