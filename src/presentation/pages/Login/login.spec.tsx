@@ -10,12 +10,11 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import faker from 'faker';
 
-import 'jest-localstorage-mock';
-
 import { InvalidCredentialsError } from 'domain/errors';
 import {
   ValidationSpy,
   AuthenticationSpy,
+  SaveAccessTokenMock,
   populateEmailField,
   populatePasswordField,
   testButtonIsDisabled,
@@ -31,6 +30,7 @@ type SutTypes = {
   sut: RenderResult;
   validationSpy: ValidationSpy;
   authenticationSpy: AuthenticationSpy;
+  saveAccessTokenMock: SaveAccessTokenMock;
 };
 
 type SutParams = {
@@ -44,12 +44,17 @@ const history = createMemoryHistory({
 function makeSut(params?: SutParams): SutTypes {
   const validationSpy = new ValidationSpy();
   const authenticationSpy = new AuthenticationSpy();
+  const saveAccessTokenMock = new SaveAccessTokenMock();
 
   validationSpy.errorMessage = params?.validationError || null;
 
   const sut = render(
     <Router history={history}>
-      <Login validation={validationSpy} authentication={authenticationSpy} />
+      <Login
+        saveAccessToken={saveAccessTokenMock}
+        validation={validationSpy}
+        authentication={authenticationSpy}
+      />
     </Router>,
   );
 
@@ -57,6 +62,7 @@ function makeSut(params?: SutParams): SutTypes {
     sut,
     validationSpy,
     authenticationSpy,
+    saveAccessTokenMock,
   };
 }
 
@@ -77,10 +83,6 @@ async function simulateValidSubmit(
 
 describe('LoginPage', () => {
   afterEach(cleanup);
-
-  beforeEach(() => {
-    localStorage.clear();
-  });
 
   it('should start with initial state', () => {
     const { sut, validationSpy } = makeSut({
@@ -206,14 +208,12 @@ describe('LoginPage', () => {
     testElementText(sut, 'main-error', error.message);
   });
 
-  it('should add accessToken to localStorage on success', async () => {
-    const { sut, authenticationSpy } = makeSut();
-    const localStorageKey = `${process.env.REACT_APP_LOCAL_STORAGE_PREFIX}:accessToken`;
+  it('should call SaveAccessToken on success', async () => {
+    const { sut, authenticationSpy, saveAccessTokenMock } = makeSut();
 
     await simulateValidSubmit(sut);
 
-    expect(localStorage.setItem).toBeCalledWith(
-      localStorageKey,
+    expect(saveAccessTokenMock.accessToken).toBe(
       authenticationSpy.account.accessToken,
     );
 
