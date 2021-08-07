@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { Authentication } from 'domain/usecases';
+import { Authentication, SaveAccessToken } from 'domain/usecases';
 import {
   AuthHeader,
   Footer,
@@ -17,14 +17,18 @@ import classes from './styles.module.scss';
 export interface LoginProps {
   validation: Validation;
   authentication: Authentication;
+  saveAccessToken: SaveAccessToken;
 }
 
-export function Login({ validation, authentication }: LoginProps): JSX.Element {
+export function Login({
+  validation,
+  authentication,
+  saveAccessToken,
+}: LoginProps): JSX.Element {
   const history = useHistory();
   const submitButtonTestId = useTestId('submit');
   const formTestId = useTestId('form');
   const signupTestId = useTestId('signup');
-  const accessTokenKey = `${process.env.REACT_APP_LOCAL_STORAGE_PREFIX}:accessToken`;
 
   const [state, setState] = useState<Omit<FormContextData, 'setState'>>({
     isLoading: false,
@@ -58,7 +62,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
           password: state.password,
         });
 
-        localStorage.setItem(accessTokenKey, account.accessToken);
+        await saveAccessToken.save(account.accessToken);
 
         history.replace('/');
       } catch (error) {
@@ -76,7 +80,7 @@ export function Login({ validation, authentication }: LoginProps): JSX.Element {
       state.email,
       state.password,
       authentication,
-      accessTokenKey,
+      saveAccessToken,
       history,
     ],
   );
