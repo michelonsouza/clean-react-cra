@@ -1,6 +1,6 @@
 {
   "name": "clean-react-cra",
-  "version": "0.2.0",
+  "version": "1.3.0",
   "private": true,
   "engines": {
     "npm": "You need to use yarn as package manager in this project",
